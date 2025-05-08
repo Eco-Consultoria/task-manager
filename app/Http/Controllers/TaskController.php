@@ -119,11 +119,12 @@ class TaskController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'task_solution' => 'string',
+            'task_solution' => 'nullable|string',
+            'note' => 'nullable|string',
             'priority' => 'required|in:high,medium,low',
             'group_id' => 'required|exists:groups,id',
             'status' => 'required|in:not_started,in_progress,in_progress_returned,on_hold,cancelled,completed,approved',
-            'users' => 'array',
+            'users' => 'nullable|array',
             'users.*' => 'exists:users,id',
         ]);
 
@@ -140,6 +141,14 @@ class TaskController extends Controller
         if ($request->status === 'completed') {
             $task->completed_by = auth()->id();
             $task->completed_at = now();
+        }
+
+        if ($request->status === 'in_progress') {
+            $task->started_at = now();
+        }
+
+        if ($request->status === 'cancelled') {
+            $task->cancelled_at = now();
         }
 
         if ($request->status === 'approved') {

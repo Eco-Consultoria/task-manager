@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->boolean('is_manager')->default(false);
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

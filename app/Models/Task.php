@@ -30,13 +30,13 @@ class Task extends Model
 
     public $timestamps = true;
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'started_at',
-        'cancelled_at',
-        'copleted_at',
-        'approved_at',
+    protected $casts = [
+        'started_at' => 'datetime',
+        'cancelled_at' => 'datetime',
+        'completed_at' => 'datetime',
+        'approved_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function group()

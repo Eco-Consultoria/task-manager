@@ -8,7 +8,8 @@
                 <h2 class="text-primary mb-4">Tarefas</h2>
             </div>
             <div class="col-auto position-absolute end-0">
-                <a href="{{ route('tasks.create') }}" class="btn btn-primary btn-sm neon-btn border-neon neon-link">+ Nova Tarefa</a>
+                <a href="{{ route('tasks.create') }}" class="btn btn-primary btn-sm neon-btn border-neon neon-link">+ Nova
+                    Tarefa</a>
             </div>
         </div>
 
@@ -37,9 +38,12 @@
                     <select name="group_id" class="form-select bg-dark text-white border-neon">
                         <option value="">Todos os Grupos</option>
                         @foreach ($groups as $group)
-                            <option value="{{ $group->id }}" {{ request('group_id') == $group->id ? 'selected' : '' }}>
-                                {{ $group->name }}
-                            </option>
+                            @if ($group->active == 1)
+                                <option value="{{ $group->id }}"
+                                    {{ request('group_id') == $group->id ? 'selected' : '' }}>
+                                    {{ $group->name }}
+                                </option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -48,9 +52,12 @@
                     <select name="user_id" class="form-select bg-dark text-white border-neon">
                         <option value="">Todos os Usuários</option>
                         @foreach ($users as $user)
-                            <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
-                                {{ $user->username }}
-                            </option>
+                            @if ($user->active == 1)
+                                <option value="{{ $user->id }}"
+                                    {{ request('user_id') == $user->id ? 'selected' : '' }}>
+                                    {{ $user->username }}
+                                </option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -102,8 +109,13 @@
                                                             class="badge bg-{{ $task->priority === 'high' ? 'danger' : ($task->priority === 'medium' ? 'warning' : 'success') }}">
                                                             {{ $task->priority == 'high' ? 'Prioridade Alta' : ($task->priority == 'medium' ? 'Prioridade Normal' : 'Prioridade Baixa') }}
                                                         </span>
-                                                        <span class="text-info small">Grupo:
-                                                            {{ $task->group->name ?? 'N/A' }}</span>
+                                                        <span
+                                                            class="text-info small">{{ $task->group->name ?? 'N/A' }}</span>
+                                                    </div>
+                                                    <div>
+                                                        @if ($task->started_at != null)
+                                                            <span                                                          class="badge bg-info mt-2"> {{ $task->started_at->diffForHumans() }} </span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </a>

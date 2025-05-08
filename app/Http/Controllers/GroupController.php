@@ -9,7 +9,7 @@ class GroupController extends Controller
 {
     public function create()
     {
-        $groups = Group::all();
+        $groups = Group::where('active', 1)->get();
         return view('groups.create', compact('groups'));
     }
 
@@ -24,5 +24,14 @@ class GroupController extends Controller
         ]);
 
         return redirect()->route('groups.create')->with('success', 'Grupo criado com sucesso.');
+    }
+
+    public function destroy($id)
+    {
+        $group = Group::findOrFail($id);
+
+        $group->update(['active' => 0]);
+
+        return redirect()->route('groups.create')->with('success', 'Grupo deletado com sucesso.');
     }
 }

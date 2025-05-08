@@ -25,8 +25,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
     Route::resource('tasks', TaskController::class);
    
@@ -38,9 +38,11 @@ Route::middleware(['auth', 'manager'])->group(function () {
     Route::get('/tasks/{task}/review', [TaskController::class, 'showReview'])->name('tasks.showReview');
 
     Route::get('/groups/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::delete('/groups/destroy/{id}', [GroupController::class, 'destroy'])->name('groups.destroy');
     Route::post('/groups', [GroupController::class, 'store'])->name('groups.store');
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::delete('/users/destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 });
 

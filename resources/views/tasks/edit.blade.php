@@ -66,9 +66,11 @@
                     <select name="group_id" id="group_id" class="form-select">
                         <option value="">Sem grupo</option>
                         @foreach ($groups as $group)
-                            <option value="{{ $group->id }}" {{ $task->group_id == $group->id ? 'selected' : '' }}>
-                                {{ $group->name }}
-                            </option>
+                            @if ($group->active == 1 || $task->group_id == $group->id)
+                                <option value="{{ $group->id }}" {{ $task->group_id == $group->id ? 'selected' : '' }}>
+                                    {{ $group->name }}
+                                </option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -78,10 +80,12 @@
                         <label for="users" class="form-label">Responsáveis</label>
                         <select name="users[]" id="users" class="form-select" multiple>
                             @foreach ($users as $user)
-                                <option value="{{ $user->id }}"
-                                    {{ $task->users->contains($user->id) ? 'selected' : '' }}>
-                                    {{ $user->username }}
-                                </option>
+                                @if ($user->active == 1 || $task->users->contains($user->id))
+                                    <option value="{{ $user->id }}"
+                                        {{ $task->users->contains($user->id) ? 'selected' : '' }}>
+                                        {{ $user->username }}
+                                    </option>
+                                @endif
                             @endforeach
                         </select>
                         <small class="form-text text-muted">Segure Ctrl (ou Cmd no Mac) para selecionar múltiplos

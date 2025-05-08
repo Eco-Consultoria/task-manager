@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('group')->get();
+        $users = User::with('group')->where('active', 1)->get();
         $groups = Group::all();
 
         $user = auth()->user();
@@ -38,6 +38,16 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso.');
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->update(['active' => 0]);
+
+        return redirect()->route('users.index')->with('success', 'Usuário deletado com sucesso.');
+    }
+
 
 }
 
