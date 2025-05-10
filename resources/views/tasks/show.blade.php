@@ -17,8 +17,13 @@
 
         <div class="row">
             <div class="col">
-                <p><strong>Criado por:</strong> {{ $task->creator->username ?? 'N/A' }}</p>
+                <p><strong>Criada por:</strong> {{ $task->creator->username ?? 'N/A' }}</p>
             </div>
+            @if ($task->status == 'cancelled')
+                <p><strong>Cancelada por:</strong> {{ $task->canceller->username ?? 'N/A' }}, <strong>em:</strong> {{ $task->cancelled_at->format('d/m/Y H:i') ?? 'N/A' }}</p>
+            @elseif ($task->status == 'approved')
+                <p><strong>Aprovada por:</strong> {{ $task->approver->username ?? 'N/A' }}, <strong>em:</strong> {{ $task->approved_at->format('d/m/Y H:i')?? 'N/A' }}</p>
+            @endif
             <div class="col">
                 <p><strong>Responsáveis:</strong> 
                     @foreach($task->users as $user)

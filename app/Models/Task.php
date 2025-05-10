@@ -58,4 +58,14 @@ class Task extends Model
     {
         return $this->belongsToMany(User::class, 'task_user');
     }
+
+    public function canceller()
+    {
+        return $this->belongsTo(User::class, 'cancelled_by');
+    }
+
+    public function approver()
+    {
+        return $this->belongsTo(User::class, 'approved_by');
+    }
 }

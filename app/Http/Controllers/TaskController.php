@@ -149,10 +149,12 @@ class TaskController extends Controller
 
         if ($request->status === 'cancelled') {
             $task->cancelled_at = now();
+            $task->cancelled_by = auth()->id();
         }
 
         if ($request->status === 'approved') {
             $task->approved_at = now();
+            $task->approved_by = auth()->id();
         }
 
         $task->users()->sync($request->input('users', []));
