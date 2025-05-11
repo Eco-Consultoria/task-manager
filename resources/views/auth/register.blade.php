@@ -17,6 +17,7 @@
             <form method="POST" action="/register">
                 @csrf
                 <input name="username" placeholder="Nome" required>
+                <input type="email" name="email" placeholder="E-mail (opcional)">
                 <input name="password" type="password" placeholder="Senha" required>
                 <input name="password_confirmation" type="password" placeholder="Confirme a senha" required>
                 <button type="submit">Cadastrar</button>

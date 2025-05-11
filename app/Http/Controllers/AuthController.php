@@ -43,11 +43,13 @@ class AuthController extends Controller
     {
         $request->validate([
             'username' => 'required|string|max:255|unique:users',
+            'email' => 'nullable|email|max:255',
             'password' => 'required|string|min:6|confirmed',
         ]);
     
         $user = new User();
         $user->username = $request->username;
+        $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->is_manager = false;
         $user->save();

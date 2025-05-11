@@ -108,7 +108,7 @@ class TaskController extends Controller
 
         $message = 'A tarefa ' . $task->title . ' foi criada por ' . auth()->user()->username . '.';
         foreach ($task->users as $user) {
-            NotificationHelper::notifyUser($user->id, $message, $task->id);
+            NotificationHelper::notifyUser($user, $message, $task->id);
         }
 
         return redirect()->route('tasks.index')->with('success', 'Tarefa criada com sucesso.');
@@ -163,14 +163,14 @@ class TaskController extends Controller
 
         $message = 'A tarefa ' . $task->title . ' foi atualizada por ' . auth()->user()->username . '.';
         foreach ($task->users as $user) {
-            NotificationHelper::notifyUser($user->id, $message, $task->id);
+            NotificationHelper::notifyUser($user, $message, $task->id);
         }
 
         if ($request->status === 'completed') {
             $managers = User::where('is_manager', 1)->get();
             $message = 'A tarefa ' . $task->title . ' foi finalizada por ' . auth()->user()->username . ' e está aguardando aprovação.';
             foreach ($managers as $manager) {
-                NotificationHelper::notifyUser($manager->id, $message, $task->id);
+                NotificationHelper::notifyUser($manager, $message, $task->id);
             }
         }
 
@@ -244,7 +244,7 @@ class TaskController extends Controller
         $message = 'A tarefa ' . $task->title . ' foi ' . $status . ' por ' . auth()->user()->username . '.';
 
         foreach ($task->users as $user) {
-            NotificationHelper::notifyUser($user->id, $message, $task->id);
+            NotificationHelper::notifyUser($user, $message, $task->id);
         }
 
         return redirect()->route('tasks.index')->with('success', 'Tarefa atualizada com sucesso!');
