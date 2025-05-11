@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Notification;
@@ -11,19 +12,29 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalTasks = Task::count();
-        $completedTasks = Task::where('status', 'approved')->count();
-        $awaitingApprovalTasks = Task::where('status', 'completed')->count();
-        $inProgressTasks = Task::where('status', 'in_progress')->orWhere('status', 'in_progress_returned')->orWhere('status', 'on_hold')->count();
-        $notStartedTasks = Task::where('status', 'not_started')->count();
-        $cancelledTasks = Task::where('status', 'cancelled')->count();
+        $user = auth()->user();
+
+        if ($user->is_manager) {
+            $groupIds = Group::select('id')->get()->toArray();
+        } else {
+            $groupIds = $user->group->pluck('id');
+        }
+
+        $totalTasks = Task::whereIn('group_id', $groupIds)->count();
+        $completedTasks = Task::whereIn('group_id', $groupIds)->where('status', 'approved')->count();
+        $awaitingApprovalTasks = Task::whereIn('group_id', $groupIds)->where('status', 'completed')->count();
+        $inProgressTasks = Task::whereIn('group_id', $groupIds)->where('status', 'in_progress')->orWhere('status', 'in_progress_returned')->orWhere('status', 'on_hold')->count();
+        $notStartedTasks = Task::whereIn('group_id', $groupIds)->where('status', 'not_started')->count();
+        $cancelledTasks = Task::whereIn('group_id', $groupIds)->where('status', 'cancelled')->count();
 
 
         $tasksByStatus = Task::select('status', DB::raw('count(*) as total'))
+            ->whereIn('group_id', $groupIds)
             ->groupBy('status')
             ->pluck('total', 'status');
 
         $tasksByPriority = Task::select('priority', DB::raw('count(*) as total'))
+            ->whereIn('group_id', $groupIds)
             ->groupBy('priority')
             ->pluck('total', 'priority');
 

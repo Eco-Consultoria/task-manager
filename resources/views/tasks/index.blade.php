@@ -114,7 +114,8 @@
                                                     </div>
                                                     <div>
                                                         @if ($task->started_at != null)
-                                                            <span                                                          class="badge bg-info mt-2"> {{ $task->started_at->diffForHumans() }} </span>
+                                                            <span class="badge bg-info mt-2">
+                                                                {{ $task->started_at->diffForHumans() }} </span>
                                                         @endif
                                                     </div>
                                                 </div>

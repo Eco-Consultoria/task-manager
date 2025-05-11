@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Dashboard')</title>
@@ -10,16 +11,17 @@
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
 <body class="bg-black text-white">
 
-   @auth
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
-        <div class="container-fluid">
-            @include('partials.navbar')
-        </div>
-    </nav>
+    @auth
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+            <div class="container-fluid">
+                @include('partials.navbar')
+            </div>
+        </nav>
     @endauth
-    
+
 
     <div class="container-fluid mt-5 pt-4">
         @yield('content')
@@ -31,4 +33,5 @@
 
     @yield('scripts')
 </body>
+
 </html>

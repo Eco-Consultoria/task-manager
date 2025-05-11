@@ -30,6 +30,9 @@
                 </li>
             @endif
 
+            <li class="nav-item">
+                <span>Bem vindo {{ auth()->user()->username }}</span>
+            </li>
 
             <li class="nav-item position-relative">
                 <a class="nav-link" href="#" onclick="toggleNotifications(event)">

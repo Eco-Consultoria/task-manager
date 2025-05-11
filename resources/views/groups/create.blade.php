@@ -19,7 +19,9 @@
         <table class="table table-dark table-striped">
             <thead>
                 <tr>
-                    <th> <h4>Grupos Existentes</h4></th>
+                    <th>
+                        <h4>Grupos Existentes</h4>
+                    </th>
                     <th></th>
                 </tr>
             </thead>
@@ -50,19 +52,22 @@
                                             <strong>{{ $group->name }}</strong>?
                                         </div>
                                         <div class="modal-footer">
-                                            <form action="{{ route('groups.destroy', $group->id) }}" method="POST" style="width: 100%;">
+                                            <form action="{{ route('groups.destroy', $group->id) }}" method="POST"
+                                                style="width: 100%;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="row justify-content-center gx-3">
                                                     <div class="col-6">
-                                                        <button type="submit" class="btn btn-danger w-100">Sim, excluir</button>
+                                                        <button type="submit" class="btn btn-danger w-100">Sim,
+                                                            excluir</button>
                                                     </div>
                                                     <div class="col-6">
-                                                        <button type="button" class="btn btn-secondary w-100" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="button" class="btn btn-secondary w-100"
+                                                            data-bs-dismiss="modal">Cancelar</button>
                                                     </div>
                                                 </div>
                                             </form>
-                                            
+
                                         </div>
                                     </div>
                                 </div>

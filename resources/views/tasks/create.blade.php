@@ -33,10 +33,9 @@
                     <label for="group_id" class="form-label">Grupo</label>
                     <select name="group_id" id="group_id" class="form-select">
                         @foreach ($groups as $group)
-                        @if ($group->active == 1)
-                            <option value="{{ $group->id }}">{{ $group->name }}</option>
-                        @endif
-                            
+                            @if ($group->active == 1)
+                                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

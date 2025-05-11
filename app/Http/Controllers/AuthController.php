@@ -46,19 +46,17 @@ class AuthController extends Controller
             'email' => 'nullable|email|max:255',
             'password' => 'required|string|min:6|confirmed',
         ]);
-    
+
         $user = new User();
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->is_manager = false;
         $user->save();
-    
+
         auth()->login($user);
-    
+
         return redirect()->route('dashboard');
-        
-        
     }
 
     public function logout()
@@ -69,4 +67,3 @@ class AuthController extends Controller
         return redirect('/login');
     }
 }
-

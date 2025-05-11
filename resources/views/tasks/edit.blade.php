@@ -103,7 +103,8 @@
 
                 <button class="btn btn-primary btn-sm w-100 neon-btn border-neon">Salvar Alterações</button>
             </form>
-            <a href="{{ route('tasks.show', $task->id) }}" class="btn btn-outline-light btn-sm neon-btn border-neon mt-3">Voltar</a>
+            <a href="{{ route('tasks.show', $task->id) }}"
+                class="btn btn-outline-light btn-sm neon-btn border-neon mt-3">Voltar</a>
         </div>
     </div>
 @endsection

@@ -24,7 +24,7 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $statuses = $this->statuses;
-        $priorities = ['high', 'medium', 'low'];   
+        $priorities = ['high', 'medium', 'low'];
         $user = auth()->user();
 
         $query = Task::with(['group', 'users']);
